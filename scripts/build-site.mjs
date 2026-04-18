@@ -200,6 +200,12 @@ const outputManifest = {
     search_index: '/agent-index.json',
     examples: '/examples.json',
     markdown_index: '/site.md',
+    markdown_support: {
+      published_raw_markdown: true,
+      root_negotiation_path: '/',
+      accept: 'text/markdown',
+      primary_markdown_routes: ['/site.md', '/skill.md', '/components.md', '/prompting.md', '/product-pages.md']
+    },
     markdown_negotiation: {
       path: '/',
       accept: 'text/markdown, text/html',

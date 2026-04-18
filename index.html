@@ -304,13 +304,14 @@
         <p class="intro lead">
           A design-system site that is intentionally easier for agents to consume than a typical docs
           website. Humans get a clear index. Agents get stable entrypoints, plain files, short aliases,
-          and machine-readable discovery.
+          machine-readable discovery, and first-class Markdown delivery.
         </p>
         <div class="meta-row">
           <span class="pill subtle">Primary: <code>/manifest.json</code></span>
           <span class="pill subtle">Fast index: <code>/agent-index.json</code></span>
           <span class="pill subtle">Plain guidance: <code>/llms.txt</code></span>
           <span class="pill subtle">Markdown index: <code>/site.md</code></span>
+          <span class="pill subtle">Raw docs: <code>*.md</code></span>
           <span class="pill subtle">Negotiated markdown at <code>/</code></span>
         </div>
         <div class="pill-row">
@@ -342,6 +343,69 @@
         </article>
 
         <article class="card">
+          <h2>Primary Resources</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Path</th>
+                <th>Purpose</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><a href="/manifest.json"><code>/manifest.json</code></a></td>
+                <td>Machine-readable entrypoint and resource catalog.</td>
+              </tr>
+              <tr>
+                <td><a href="/llms.txt"><code>/llms.txt</code></a></td>
+                <td>Plain-text agent guidance and fetch order.</td>
+              </tr>
+              <tr>
+                <td><a href="/tokens.json"><code>/tokens.json</code></a></td>
+                <td>Design tokens in JSON for agents and tools.</td>
+              </tr>
+              <tr>
+                <td><a href="/tokens.css"><code>/tokens.css</code></a></td>
+                <td>CSS variables and small utility layer.</td>
+              </tr>
+              <tr>
+                <td><a href="/skill.md"><code>/skill.md</code></a></td>
+                <td>Main skill definition.</td>
+              </tr>
+              <tr>
+                <td><a href="/agent-index.json"><code>/agent-index.json</code></a></td>
+                <td>Tiny search/index JSON for fast resource discovery.</td>
+              </tr>
+              <tr>
+                <td><a href="/examples.json"><code>/examples.json</code></a></td>
+                <td>Task-oriented fetch bundles for common UI jobs.</td>
+              </tr>
+              <tr>
+                <td><a href="/site.md"><code>/site.md</code></a></td>
+                <td>Explicit Markdown index for agents and humans.</td>
+              </tr>
+              <tr>
+                <td><a href="/.well-known/agent-skills/index.json"><code>/.well-known/agent-skills/index.json</code></a></td>
+                <td>Agent Skills discovery index for the published skill.</td>
+              </tr>
+            </tbody>
+          </table>
+        </article>
+      </section>
+
+      <section class="grid">
+        <article class="card">
+          <h2>Choose Files By Task</h2>
+          <ul>
+            <li>Landing page: <code>/tokens.json</code>, <code>/components.md</code>, <code>/product-pages.md</code></li>
+            <li>Calculator/tool: <code>/tokens.json</code>, <code>/components.md</code>, <code>/prompting.md</code></li>
+            <li>Agent setup: <code>/skill.md</code>, <code>/agent-index.json</code>, <code>/llms.txt</code></li>
+            <li>Task routing: <code>/examples.json</code>, <code>/agent-index.json</code>, <code>/manifest.json</code></li>
+            <li>Raw token ingestion: <code>/tokens.json</code> or <code>/tokens.css</code></li>
+          </ul>
+        </article>
+
+        <article class="card">
           <h2>Recommended Fetch Order</h2>
           <pre>GET /manifest.json
 GET /skill.md
@@ -360,146 +424,34 @@ GET /product-pages.md</pre>
         </article>
 
         <article class="card">
-          <h2>Markdown Negotiation</h2>
-          <pre>curl https://cf-workers-design-system.adewale-883.workers.dev/ \
-  -H "Accept: text/markdown, text/html"</pre>
-          <p class="small muted">
-            Requests to <code>/</code> that prefer <code>text/markdown</code> are rewritten to the Markdown
-            index and returned with <code>Vary: Accept</code>.
-          </p>
+          <h2>Recommended Agent Flow</h2>
+          <ol>
+            <li>Fetch <code>/manifest.json</code>.</li>
+            <li>Read <code>/skills/cf-workers-design/SKILL.md</code> or <code>/skill.md</code>.</li>
+            <li>Load <code>/tokens/tokens.json</code> for machine-friendly values.</li>
+            <li>Load only the docs or references needed for the current task.</li>
+          </ol>
         </article>
-      </section>
 
-      <section class="grid">
-        <div>
-          <article class="card">
-            <h2>Recommended Agent Flow</h2>
-            <ol>
-              <li>Fetch <code>/manifest.json</code>.</li>
-              <li>Read <code>/skills/cf-workers-design/SKILL.md</code> or <code>/skill.md</code>.</li>
-              <li>Load <code>/tokens/tokens.json</code> for machine-friendly values.</li>
-              <li>Load only the docs or references needed for the current task.</li>
-            </ol>
-          </article>
+        <article class="card">
+          <h2>Minimal Fetch Example</h2>
+          <pre>GET /manifest.json
+GET /skill.md
+GET /agent-index.json
+GET /examples.json
+GET /tokens.json
+GET /components.md</pre>
+        </article>
 
-          <article class="card">
-            <h2>Agent-First Vs. Website-First</h2>
-            <table class="compare">
-              <thead>
-                <tr>
-                  <th>Typical docs site</th>
-                  <th>This site</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Start from a homepage and click around.</td>
-                  <td class="good">Start from <code>/manifest.json</code> and fetch only what matters.</td>
-                </tr>
-                <tr>
-                  <td>Navigation and meaning live mostly in rendered HTML.</td>
-                  <td class="good">Discovery is duplicated in plain JSON and plain text.</td>
-                </tr>
-                <tr>
-                  <td>Design rules are embedded in long docs.</td>
-                  <td class="good">Design rules are also packaged as a standalone skill.</td>
-                </tr>
-                <tr>
-                  <td>Tokens are often visible only in code or screenshots.</td>
-                  <td class="good">Tokens are directly available as JSON and CSS.</td>
-                </tr>
-              </tbody>
-            </table>
-          </article>
-
-          <article class="card">
-            <h2>Primary Resources</h2>
-            <table>
-              <thead>
-                <tr>
-                  <th>Path</th>
-                  <th>Purpose</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><a href="/manifest.json"><code>/manifest.json</code></a></td>
-                  <td>Machine-readable entrypoint and resource catalog.</td>
-                </tr>
-                <tr>
-                  <td><a href="/llms.txt"><code>/llms.txt</code></a></td>
-                  <td>Plain-text agent guidance and fetch order.</td>
-                </tr>
-                <tr>
-                  <td><a href="/tokens.json"><code>/tokens.json</code></a></td>
-                  <td>Design tokens in JSON for agents and tools.</td>
-                </tr>
-                <tr>
-                  <td><a href="/tokens.css"><code>/tokens.css</code></a></td>
-                  <td>CSS variables and small utility layer.</td>
-                </tr>
-                <tr>
-                  <td><a href="/skill.md"><code>/skill.md</code></a></td>
-                  <td>Main skill definition.</td>
-                </tr>
-                <tr>
-                  <td><a href="/agent-index.json"><code>/agent-index.json</code></a></td>
-                  <td>Tiny search/index JSON for fast resource discovery.</td>
-                </tr>
-                <tr>
-                  <td><a href="/examples.json"><code>/examples.json</code></a></td>
-                  <td>Task-oriented fetch bundles for common UI jobs.</td>
-                </tr>
-                <tr>
-                  <td><a href="/site.md"><code>/site.md</code></a></td>
-                  <td>Explicit Markdown index for agents and humans.</td>
-                </tr>
-                <tr>
-                  <td><a href="/.well-known/agent-skills/index.json"><code>/.well-known/agent-skills/index.json</code></a></td>
-                  <td>Agent Skills discovery index for the published skill.</td>
-                </tr>
-              </tbody>
-            </table>
-          </article>
-
-          <article class="card">
-            <h2>Schemas</h2>
-            <ul>
-              <li><a href="/manifest.schema.json"><code>/manifest.schema.json</code></a></li>
-              <li><a href="/agent-index.schema.json"><code>/agent-index.schema.json</code></a></li>
-            </ul>
-          </article>
-        </div>
-
-        <div>
-          <article class="card">
-            <h2>Available Documents</h2>
-            <ul>
-              <li><a href="/design-system.md"><code>/design-system.md</code></a></li>
-              <li><a href="/components.md"><code>/components.md</code></a></li>
-              <li><a href="/prompting.md"><code>/prompting.md</code></a></li>
-              <li><a href="/templates.md"><code>/templates.md</code></a></li>
-              <li><a href="/product-pages.md"><code>/product-pages.md</code></a></li>
-            </ul>
-          </article>
-
-          <article class="card">
-            <h2>Skill References</h2>
-            <ul>
-              <li><a href="/skill/design-tokens.md"><code>/skill/design-tokens.md</code></a></li>
-              <li><a href="/skill/components.md"><code>/skill/components.md</code></a></li>
-              <li><a href="/skill/prompting-guide.md"><code>/skill/prompting-guide.md</code></a></li>
-              <li><a href="/skill/product-pages.md"><code>/skill/product-pages.md</code></a></li>
-            </ul>
-          </article>
-
-          <article class="card">
-            <h2>Install The Skill</h2>
-            <p class="small muted">
-              The skill consists of <code>SKILL.md</code> plus four reference files. Pick your tool's skill
-              directory, then download the files below.
-            </p>
-            <pre>TARGET_DIR="$HOME/.claude/skills/cf-workers-design"
+        <article class="card">
+          <h2>Install The Skill</h2>
+          <p class="small muted">
+            Use the direct download today. You can also install the same skill with <code>gh skill</code>
+            or the <code>skills</code> CLI from
+            <code>adewale/cf-workers-design-system</code>.
+          </p>
+          <pre># Direct download
+TARGET_DIR="$HOME/.claude/skills/cf-workers-design"
 mkdir -p "$TARGET_DIR/references"
 
 curl -fsSL https://cf-workers-design-system.adewale-883.workers.dev/skill.md \
@@ -511,35 +463,96 @@ curl -fsSL https://cf-workers-design-system.adewale-883.workers.dev/skill/compon
 curl -fsSL https://cf-workers-design-system.adewale-883.workers.dev/skill/prompting-guide.md \
   -o "$TARGET_DIR/references/prompting-guide.md"
 curl -fsSL https://cf-workers-design-system.adewale-883.workers.dev/skill/product-pages.md \
-  -o "$TARGET_DIR/references/product-pages.md"</pre>
-            <ul>
-              <li>Claude Code: set <code>TARGET_DIR=$HOME/.claude/skills/cf-workers-design</code></li>
-              <li>OpenCode: set <code>TARGET_DIR=$HOME/.config/opencode/skills/cf-workers-design</code></li>
-              <li>Codex: set <code>TARGET_DIR=$HOME/.codex/skills/cf-workers-design</code></li>
-            </ul>
-          </article>
+  -o "$TARGET_DIR/references/product-pages.md"
 
-          <article class="card">
-            <h2>Choose Files By Task</h2>
-            <ul>
-              <li>Landing page: <code>/tokens.json</code>, <code>/components.md</code>, <code>/product-pages.md</code></li>
-              <li>Calculator/tool: <code>/tokens.json</code>, <code>/components.md</code>, <code>/prompting.md</code></li>
-              <li>Agent setup: <code>/skill.md</code>, <code>/agent-index.json</code>, <code>/llms.txt</code></li>
-              <li>Task routing: <code>/examples.json</code>, <code>/agent-index.json</code>, <code>/manifest.json</code></li>
-              <li>Raw token ingestion: <code>/tokens.json</code> or <code>/tokens.css</code></li>
-            </ul>
-          </article>
+# GitHub CLI (gh v2.90.0+)
+gh skill install adewale/cf-workers-design-system cf-workers-design
 
-          <article class="card">
-            <h2>Minimal Fetch Example</h2>
-            <pre>GET /manifest.json
-GET /skill.md
-GET /agent-index.json
-GET /examples.json
-GET /tokens.json
-GET /components.md</pre>
-          </article>
-        </div>
+# skills.sh CLI
+npx skills add adewale/cf-workers-design-system</pre>
+          <ul>
+            <li>Claude Code: <code>gh skill install adewale/cf-workers-design-system cf-workers-design --agent claude-code --scope user</code></li>
+            <li>OpenCode: direct download to <code>~/.config/opencode/skills/cf-workers-design</code></li>
+            <li>Codex: <code>gh skill install adewale/cf-workers-design-system cf-workers-design --agent codex --scope user</code></li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h2>Available Documents</h2>
+          <ul>
+            <li><a href="/design-system.md"><code>/design-system.md</code></a></li>
+            <li><a href="/components.md"><code>/components.md</code></a></li>
+            <li><a href="/prompting.md"><code>/prompting.md</code></a></li>
+            <li><a href="/templates.md"><code>/templates.md</code></a></li>
+            <li><a href="/product-pages.md"><code>/product-pages.md</code></a></li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h2>Skill References</h2>
+          <ul>
+            <li><a href="/skill/design-tokens.md"><code>/skill/design-tokens.md</code></a></li>
+            <li><a href="/skill/components.md"><code>/skill/components.md</code></a></li>
+            <li><a href="/skill/prompting-guide.md"><code>/skill/prompting-guide.md</code></a></li>
+            <li><a href="/skill/product-pages.md"><code>/skill/product-pages.md</code></a></li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h2>Agent-First Vs. Website-First</h2>
+          <table class="compare">
+            <thead>
+              <tr>
+                <th>Typical docs site</th>
+                <th>This site</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Start from a homepage and click around.</td>
+                <td class="good">Start from <code>/manifest.json</code> and fetch only what matters.</td>
+              </tr>
+              <tr>
+                <td>Navigation and meaning live mostly in rendered HTML.</td>
+                <td class="good">Discovery is duplicated in plain JSON and plain text.</td>
+              </tr>
+              <tr>
+                <td>Design rules are embedded in long docs.</td>
+                <td class="good">Design rules are also packaged as a standalone skill.</td>
+              </tr>
+              <tr>
+                <td>Tokens are often visible only in code or screenshots.</td>
+                <td class="good">Tokens are directly available as JSON and CSS.</td>
+              </tr>
+            </tbody>
+          </table>
+        </article>
+
+        <article class="card">
+          <h2>Markdown Support</h2>
+          <p class="small muted">
+            Markdown is a first-class output here. Reference docs, the skill, and the site index are all
+            published as raw <code>.md</code> files, and the homepage can negotiate to Markdown when an
+            agent requests <code>text/markdown</code>.
+          </p>
+          <pre>curl https://cf-workers-design-system.adewale-883.workers.dev/site.md
+
+curl https://cf-workers-design-system.adewale-883.workers.dev/ \
+  -H "Accept: text/markdown, text/html"</pre>
+          <p class="small muted">
+            Requests to <code>/</code> that prefer <code>text/markdown</code> are rewritten to the Markdown
+            index and returned with <code>Vary: Accept</code>. Markdown responses also advertise discovery
+            headers and token estimates for agent use.
+          </p>
+        </article>
+
+        <article class="card">
+          <h2>Schemas</h2>
+          <ul>
+            <li><a href="/manifest.schema.json"><code>/manifest.schema.json</code></a></li>
+            <li><a href="/agent-index.schema.json"><code>/agent-index.schema.json</code></a></li>
+          </ul>
+        </article>
       </section>
 
       <footer class="site-footer">

@@ -42,6 +42,12 @@ Then fetch only the task-specific files you need.
 
 ## Install The Skill
 
+The skill name is `cf-workers-design`.
+
+This repo is published on GitHub as `adewale/cf-workers-design-system`.
+
+### Direct download
+
 ```bash
 TARGET_DIR="$HOME/.claude/skills/cf-workers-design"
 mkdir -p "$TARGET_DIR/references"
@@ -63,6 +69,20 @@ Common skill directories:
 - Claude Code: `~/.claude/skills/cf-workers-design`
 - OpenCode: `~/.config/opencode/skills/cf-workers-design`
 - Codex: `~/.codex/skills/cf-workers-design`
+
+### GitHub CLI (`gh skill`)
+
+```bash
+gh skill preview adewale/cf-workers-design-system cf-workers-design
+gh skill install adewale/cf-workers-design-system cf-workers-design
+gh skill install adewale/cf-workers-design-system cf-workers-design --agent claude-code --scope user
+```
+
+### `skills.sh` CLI
+
+```bash
+npx skills add adewale/cf-workers-design-system
+```
 
 ## Attribution
 

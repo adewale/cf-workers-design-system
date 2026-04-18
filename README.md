@@ -1,10 +1,12 @@
 # CF Workers Design System
 
-An agent-first static website for Cloudflare Workers-style design tokens, implementation docs, and a reusable UI skill.
+Agent-first static website and skill repository for Cloudflare Workers-style design tokens, reference docs, and reusable UI guidance.
 
-It is designed so both humans and coding agents can consume the same source of truth, but the delivery shape favors agents first: plain files, stable URLs, machine-readable discovery, and minimal crawling.
+It publishes the same source of truth as raw `json`, `css`, and `md` files so humans and coding agents can consume it with minimal crawling. The delivery shape favors direct fetching: stable URLs, machine-readable discovery, first-class Markdown support, and a standalone skill.
 
 Derived from the original reference site: `https://cf-workers-design.nireka-96.workers.dev/`
+
+Repository: `https://github.com/adewale/cf-workers-design-system`
 
 ## Why This Exists
 
@@ -23,6 +25,20 @@ This project takes the opposite approach:
 - compact reference docs for components, prompting, templates, and product-page patterns
 - a standalone skill for agent-guided UI generation
 - a static site that can be served by Cloudflare Workers Static Assets
+- raw Markdown docs and a negotiated Markdown homepage for agent-friendly fetches
+
+## Quick Start
+
+### Preview locally
+
+```bash
+git clone https://github.com/adewale/cf-workers-design-system.git
+cd cf-workers-design-system
+npm install
+npm run dev
+```
+
+Then open `/`, `/site.md`, or `/manifest.json` in the local preview.
 
 ## Attribution
 
@@ -36,26 +52,15 @@ This project is derived from the original CF Workers design reference site and i
 - `PRODUCT-PAGES.md`
 - `SKILLS.md`
 
-## Quick Start
-
-### Local preview
-
-```bash
-npm install
-npm run dev
-```
-
 ### Build the static site
 
 ```bash
-npm install
 npm run build
 ```
 
 ### Deploy to Cloudflare Workers Static Assets
 
 ```bash
-npm install
 npm run deploy
 ```
 
@@ -83,6 +88,16 @@ curl https://cf-workers-design-system.adewale-883.workers.dev/ \
   -H "Accept: text/markdown, text/html"
 ```
 
+### Markdown support
+
+Markdown is a first-class output, not a derived format.
+
+- the site index is published at `/site.md`
+- reference docs are available as raw `.md` files like `/components.md` and `/product-pages.md`
+- the skill is published directly at `/skill.md`
+- requests to `/` can negotiate to Markdown with `Accept: text/markdown`
+- Markdown responses advertise discovery headers and token estimates for agent workflows
+
 ### For agents
 
 Recommended fetch order:
@@ -109,6 +124,12 @@ The deployed skill entrypoint is:
 
 - `https://cf-workers-design-system.adewale-883.workers.dev/skill.md`
 
+The skill name is `cf-workers-design`.
+
+This repo is published on GitHub as `adewale/cf-workers-design-system`.
+
+### Direct download
+
 Download the skill and references into your agent's skills directory.
 
 ```bash
@@ -132,6 +153,54 @@ Common target directories:
 - Claude Code: `~/.claude/skills/cf-workers-design`
 - OpenCode: `~/.config/opencode/skills/cf-workers-design`
 - Codex: `~/.codex/skills/cf-workers-design`
+
+### GitHub CLI (`gh skill`)
+
+`gh skill` ships in GitHub CLI `v2.90.0` and later.
+
+Preview the skill before installing it:
+
+```bash
+gh skill preview adewale/cf-workers-design-system cf-workers-design
+```
+
+Install it interactively:
+
+```bash
+gh skill install adewale/cf-workers-design-system cf-workers-design
+```
+
+Target a specific host explicitly when useful:
+
+```bash
+gh skill install adewale/cf-workers-design-system cf-workers-design --agent claude-code --scope user
+gh skill install adewale/cf-workers-design-system cf-workers-design --agent codex --scope user
+```
+
+Update installed skills later:
+
+```bash
+gh skill update cf-workers-design
+```
+
+### `skills.sh` CLI
+
+You can also install the repository with the `skills` CLI:
+
+```bash
+npx skills add adewale/cf-workers-design-system
+```
+
+This downloads the skill and configures it for your agent host.
+
+## Scope And Non-Goals
+
+This repo is meant to publish design guidance in agent-friendly formats.
+
+- it is a static site and skill repository, not a component package on npm
+- it publishes tokens, docs, and skill files, not a runtime UI framework
+- it favors direct file access over a richer app shell or search UI
+- it is derived from the original CF Workers design reference rather than acting as an official Cloudflare property
 
 ## Why This Is Agent-Ready
 
@@ -262,6 +331,11 @@ Keep additions agent-friendly:
 - keep canonical paths stable
 - add new resources to `manifest.json` and `agent-index.json` generation where appropriate
 - avoid making the homepage the only place where information can be discovered
+
+## Support
+
+- bug reports and improvement requests: `https://github.com/adewale/cf-workers-design-system/issues`
+- source repository: `https://github.com/adewale/cf-workers-design-system`
 
 ## License
 
