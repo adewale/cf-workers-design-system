@@ -1,0 +1,51 @@
+# CF Workers Design System
+
+This site is primarily for agent consumption.
+
+Recommended fetch order:
+
+1. `/manifest.json`
+2. `/skill.md`
+3. `/tokens.json`
+4. `/agent-index.json`
+5. `/examples.json`
+6. task-specific docs or skill references
+
+Core rules:
+
+- Use warm cream surfaces, not pure white.
+- Use warm brown text, not pure black.
+- Use Cloudflare orange `#FF4801` as the accent.
+- Buttons are pill-shaped.
+- Cards and bordered wrappers use corner-bracket details.
+- Prefer subtle fills, dashed borders, and restrained motion.
+
+Primary machine-friendly resources:
+
+- `/manifest.json`
+- `/tokens.json`
+- `/tokens.css`
+- `/skill.md`
+- `/agent-index.json`
+- `/examples.json`
+- `/site.md`
+
+Primary human-readable docs:
+
+- `/design-system.md`
+- `/components.md`
+- `/prompting.md`
+- `/templates.md`
+- `/product-pages.md`
+
+Skill references:
+
+- `/skill/design-tokens.md`
+- `/skill/components.md`
+- `/skill/prompting-guide.md`
+- `/skill/product-pages.md`
+
+Schemas:
+
+- `/manifest.schema.json`
+- `/agent-index.schema.json`

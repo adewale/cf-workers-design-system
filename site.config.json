@@ -1,0 +1,7 @@
+{
+  "siteName": "CF Workers Design System",
+  "siteDescription": "Agent-first static website for Cloudflare Workers-style design tokens, docs, and skill files.",
+  "siteUrl": "https://cf-workers-design-system.adewale-883.workers.dev",
+  "repositoryUrl": "",
+  "defaultBranch": "main"
+}

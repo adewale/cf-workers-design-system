@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CF Workers Design System</title>
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="alternate" type="application/json" href="/manifest.json" title="Site Manifest" />
+    <meta
+      name="description"
+      content="Agent-first static website for the CF Workers design tokens, docs, and reusable skill."
+    />
+    <style>
+      :root {
+        --cf-orange: #ff4801;
+        --cf-text: #521000;
+        --cf-text-muted: rgba(82, 16, 0, 0.72);
+        --cf-bg-page: #f5f1eb;
+        --cf-bg-100: #fffbf5;
+        --cf-bg-200: #fffdfb;
+        --cf-bg-300: #fef7ed;
+        --cf-border: #ebd5c1;
+        --cf-border-light: rgba(235, 213, 193, 0.5);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: var(--cf-bg-page);
+        color: var(--cf-text);
+        font: 16px/1.6 'FT Kunst Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      }
+
+      a {
+        color: var(--cf-orange);
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .wrap {
+        width: min(100% - 32px, 1100px);
+        margin: 0 auto;
+        padding: 32px 0 64px;
+      }
+
+      .hero {
+        position: relative;
+        overflow: hidden;
+        border: 1px solid var(--cf-border);
+        background: var(--cf-bg-100);
+        padding: 28px;
+      }
+
+      .hero::before,
+      .hero::after,
+      .hero .corner-a,
+      .hero .corner-b {
+        content: '';
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        border: 1px solid var(--cf-border);
+        border-radius: 1.5px;
+        background: var(--cf-bg-100);
+      }
+
+      .hero::before {
+        top: -4px;
+        left: -4px;
+      }
+
+      .hero::after {
+        top: -4px;
+        right: -4px;
+      }
+
+      .hero .corner-a {
+        bottom: -4px;
+        left: -4px;
+      }
+
+      .hero .corner-b {
+        bottom: -4px;
+        right: -4px;
+      }
+
+      h1,
+      h2 {
+        margin: 0;
+        letter-spacing: -0.02em;
+        font-weight: 500;
+      }
+
+      h1 {
+        font-size: clamp(2rem, 4vw, 3rem);
+      }
+
+      h2 {
+        font-size: 1.25rem;
+        margin-bottom: 12px;
+      }
+
+      p {
+        margin: 0;
+        color: var(--cf-text-muted);
+      }
+
+      .intro {
+        max-width: 760px;
+        margin-top: 10px;
+      }
+
+      .pill-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 20px;
+      }
+
+      .meta-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 14px;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--cf-border);
+        border-radius: 9999px;
+        padding: 10px 16px;
+        background: var(--cf-bg-200);
+        color: var(--cf-text);
+        font-weight: 500;
+      }
+
+      .pill.primary {
+        border-color: var(--cf-orange);
+        background: var(--cf-orange);
+        color: white;
+      }
+
+      .pill.subtle {
+        background: var(--cf-bg-300);
+      }
+
+      .grid {
+        display: grid;
+        gap: 24px;
+        margin-top: 32px;
+      }
+
+      @media (min-width: 860px) {
+        .grid {
+          grid-template-columns: 1.1fr 1fr;
+        }
+      }
+
+      .card {
+        border: 1px solid var(--cf-border);
+        background: var(--cf-bg-200);
+        padding: 24px;
+      }
+
+      .split {
+        display: grid;
+        gap: 24px;
+        margin-top: 24px;
+      }
+
+      @media (min-width: 860px) {
+        .split {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      .card + .card {
+        margin-top: 16px;
+      }
+
+      ul,
+      ol {
+        padding-left: 18px;
+        margin: 12px 0 0;
+      }
+
+      li {
+        margin: 6px 0;
+        color: var(--cf-text-muted);
+      }
+
+      code,
+      pre {
+        font-family: 'Apercu Mono Pro', 'SF Mono', 'Fira Code', 'Consolas', monospace;
+      }
+
+      pre {
+        overflow-x: auto;
+        margin: 14px 0 0;
+        padding: 16px;
+        border: 1px solid var(--cf-border-light);
+        background: #1a1209;
+        color: #f0e3de;
+        border-radius: 12px;
+        font-size: 13px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 12px;
+        font-size: 14px;
+      }
+
+      th,
+      td {
+        border: 1px solid var(--cf-border-light);
+        padding: 10px 12px;
+        text-align: left;
+        vertical-align: top;
+      }
+
+      th {
+        background: var(--cf-bg-300);
+        font-weight: 500;
+      }
+
+      .muted {
+        color: var(--cf-text-muted);
+      }
+
+      .lead {
+        font-size: 1.05rem;
+      }
+
+      .kicker {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 10px;
+        color: var(--cf-orange);
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .kicker::before {
+        content: '';
+        width: 10px;
+        height: 10px;
+        border-radius: 9999px;
+        background: var(--cf-orange);
+        box-shadow: 0 0 0 4px rgba(255, 72, 1, 0.12);
+      }
+
+      .compare {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 12px;
+      }
+
+      .compare td,
+      .compare th {
+        padding: 12px;
+      }
+
+      .good {
+        color: var(--cf-text);
+        background: rgba(255, 72, 1, 0.06);
+      }
+
+      .small {
+        font-size: 14px;
+      }
+
+      .site-footer {
+        margin-top: 32px;
+        border: 1px solid var(--cf-border);
+        background: var(--cf-bg-100);
+        padding: 20px 24px;
+      }
+
+      .site-footer p + p {
+        margin-top: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <section class="hero">
+        <span class="corner-a" aria-hidden="true"></span>
+        <span class="corner-b" aria-hidden="true"></span>
+        <div class="kicker">Agent-first static assets</div>
+        <h1>CF Workers Design System</h1>
+        <p class="intro lead">
+          A design-system site that is intentionally easier for agents to consume than a typical docs
+          website. Humans get a clear index. Agents get stable entrypoints, plain files, short aliases,
+          and machine-readable discovery.
+        </p>
+        <div class="meta-row">
+          <span class="pill subtle">Primary: <code>/manifest.json</code></span>
+          <span class="pill subtle">Fast index: <code>/agent-index.json</code></span>
+          <span class="pill subtle">Plain guidance: <code>/llms.txt</code></span>
+          <span class="pill subtle">Markdown index: <code>/site.md</code></span>
+          <span class="pill subtle">Negotiated markdown at <code>/</code></span>
+        </div>
+        <div class="pill-row">
+          <a class="pill primary" href="/manifest.json">Open manifest</a>
+          <a class="pill" href="/llms.txt">Read llms.txt</a>
+          <a class="pill" href="/skill.md">Read skill</a>
+          <a class="pill" href="/tokens.json">Read tokens</a>
+          <a class="pill" href="/agent-index.json">Read agent index</a>
+          <a class="pill" href="/examples.json">Read examples</a>
+        </div>
+        <p class="intro small" style="margin-top: 18px;">
+          Derived from the original reference site:
+          <a href="https://cf-workers-design.nireka-96.workers.dev/">cf-workers-design.nireka-96.workers.dev</a>
+        </p>
+      </section>
+
+      <section class="split">
+        <article class="card">
+          <h2>Why This Is Better For Agents</h2>
+          <ul>
+            <li>One canonical discovery file: <code>/manifest.json</code>.</li>
+            <li>Short predictable URLs for the most important assets.</li>
+            <li>Everything important is plain <code>.json</code>, <code>.md</code>, or <code>.css</code>.</li>
+            <li>No client-side app shell or JavaScript-rendered navigation is required to find the data.</li>
+            <li>The design skill is published as a first-class artifact, not buried in prose.</li>
+            <li>A tiny <code>/agent-index.json</code> gives fast, low-token retrieval for common tasks.</li>
+            <li>CORS-friendly static delivery makes direct tool fetching straightforward.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h2>Recommended Fetch Order</h2>
+          <pre>GET /manifest.json
+GET /skill.md
+GET /agent-index.json
+GET /examples.json
+GET /tokens.json
+
+# Then choose one or more:
+GET /components.md
+GET /prompting.md
+GET /product-pages.md</pre>
+          <p class="small muted">
+            The goal is to reduce broad crawling. An agent should fetch the minimum number of files needed
+            for the current UI task.
+          </p>
+        </article>
+
+        <article class="card">
+          <h2>Markdown Negotiation</h2>
+          <pre>curl https://cf-workers-design-system.adewale-883.workers.dev/ \
+  -H "Accept: text/markdown, text/html"</pre>
+          <p class="small muted">
+            Requests to <code>/</code> that prefer <code>text/markdown</code> are rewritten to the Markdown
+            index and returned with <code>Vary: Accept</code>.
+          </p>
+        </article>
+      </section>
+
+      <section class="grid">
+        <div>
+          <article class="card">
+            <h2>Recommended Agent Flow</h2>
+            <ol>
+              <li>Fetch <code>/manifest.json</code>.</li>
+              <li>Read <code>/skills/cf-workers-design/SKILL.md</code> or <code>/skill.md</code>.</li>
+              <li>Load <code>/tokens/tokens.json</code> for machine-friendly values.</li>
+              <li>Load only the docs or references needed for the current task.</li>
+            </ol>
+          </article>
+
+          <article class="card">
+            <h2>Agent-First Vs. Website-First</h2>
+            <table class="compare">
+              <thead>
+                <tr>
+                  <th>Typical docs site</th>
+                  <th>This site</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Start from a homepage and click around.</td>
+                  <td class="good">Start from <code>/manifest.json</code> and fetch only what matters.</td>
+                </tr>
+                <tr>
+                  <td>Navigation and meaning live mostly in rendered HTML.</td>
+                  <td class="good">Discovery is duplicated in plain JSON and plain text.</td>
+                </tr>
+                <tr>
+                  <td>Design rules are embedded in long docs.</td>
+                  <td class="good">Design rules are also packaged as a standalone skill.</td>
+                </tr>
+                <tr>
+                  <td>Tokens are often visible only in code or screenshots.</td>
+                  <td class="good">Tokens are directly available as JSON and CSS.</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+
+          <article class="card">
+            <h2>Primary Resources</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Path</th>
+                  <th>Purpose</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><a href="/manifest.json"><code>/manifest.json</code></a></td>
+                  <td>Machine-readable entrypoint and resource catalog.</td>
+                </tr>
+                <tr>
+                  <td><a href="/llms.txt"><code>/llms.txt</code></a></td>
+                  <td>Plain-text agent guidance and fetch order.</td>
+                </tr>
+                <tr>
+                  <td><a href="/tokens.json"><code>/tokens.json</code></a></td>
+                  <td>Design tokens in JSON for agents and tools.</td>
+                </tr>
+                <tr>
+                  <td><a href="/tokens.css"><code>/tokens.css</code></a></td>
+                  <td>CSS variables and small utility layer.</td>
+                </tr>
+                <tr>
+                  <td><a href="/skill.md"><code>/skill.md</code></a></td>
+                  <td>Main skill definition.</td>
+                </tr>
+                <tr>
+                  <td><a href="/agent-index.json"><code>/agent-index.json</code></a></td>
+                  <td>Tiny search/index JSON for fast resource discovery.</td>
+                </tr>
+                <tr>
+                  <td><a href="/examples.json"><code>/examples.json</code></a></td>
+                  <td>Task-oriented fetch bundles for common UI jobs.</td>
+                </tr>
+                <tr>
+                  <td><a href="/site.md"><code>/site.md</code></a></td>
+                  <td>Explicit Markdown index for agents and humans.</td>
+                </tr>
+                <tr>
+                  <td><a href="/.well-known/agent-skills/index.json"><code>/.well-known/agent-skills/index.json</code></a></td>
+                  <td>Agent Skills discovery index for the published skill.</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+
+          <article class="card">
+            <h2>Schemas</h2>
+            <ul>
+              <li><a href="/manifest.schema.json"><code>/manifest.schema.json</code></a></li>
+              <li><a href="/agent-index.schema.json"><code>/agent-index.schema.json</code></a></li>
+            </ul>
+          </article>
+        </div>
+
+        <div>
+          <article class="card">
+            <h2>Available Documents</h2>
+            <ul>
+              <li><a href="/design-system.md"><code>/design-system.md</code></a></li>
+              <li><a href="/components.md"><code>/components.md</code></a></li>
+              <li><a href="/prompting.md"><code>/prompting.md</code></a></li>
+              <li><a href="/templates.md"><code>/templates.md</code></a></li>
+              <li><a href="/product-pages.md"><code>/product-pages.md</code></a></li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h2>Skill References</h2>
+            <ul>
+              <li><a href="/skill/design-tokens.md"><code>/skill/design-tokens.md</code></a></li>
+              <li><a href="/skill/components.md"><code>/skill/components.md</code></a></li>
+              <li><a href="/skill/prompting-guide.md"><code>/skill/prompting-guide.md</code></a></li>
+              <li><a href="/skill/product-pages.md"><code>/skill/product-pages.md</code></a></li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h2>Install The Skill</h2>
+            <p class="small muted">
+              The skill consists of <code>SKILL.md</code> plus four reference files. Pick your tool's skill
+              directory, then download the files below.
+            </p>
+            <pre>TARGET_DIR="$HOME/.claude/skills/cf-workers-design"
+mkdir -p "$TARGET_DIR/references"
+
+curl -fsSL https://cf-workers-design-system.adewale-883.workers.dev/skill.md \
+  -o "$TARGET_DIR/SKILL.md"
+curl -fsSL https://cf-workers-design-system.adewale-883.workers.dev/skill/design-tokens.md \
+  -o "$TARGET_DIR/references/design-tokens.md"
+curl -fsSL https://cf-workers-design-system.adewale-883.workers.dev/skill/components.md \
+  -o "$TARGET_DIR/references/components.md"
+curl -fsSL https://cf-workers-design-system.adewale-883.workers.dev/skill/prompting-guide.md \
+  -o "$TARGET_DIR/references/prompting-guide.md"
+curl -fsSL https://cf-workers-design-system.adewale-883.workers.dev/skill/product-pages.md \
+  -o "$TARGET_DIR/references/product-pages.md"</pre>
+            <ul>
+              <li>Claude Code: set <code>TARGET_DIR=$HOME/.claude/skills/cf-workers-design</code></li>
+              <li>OpenCode: set <code>TARGET_DIR=$HOME/.config/opencode/skills/cf-workers-design</code></li>
+              <li>Codex: set <code>TARGET_DIR=$HOME/.codex/skills/cf-workers-design</code></li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h2>Choose Files By Task</h2>
+            <ul>
+              <li>Landing page: <code>/tokens.json</code>, <code>/components.md</code>, <code>/product-pages.md</code></li>
+              <li>Calculator/tool: <code>/tokens.json</code>, <code>/components.md</code>, <code>/prompting.md</code></li>
+              <li>Agent setup: <code>/skill.md</code>, <code>/agent-index.json</code>, <code>/llms.txt</code></li>
+              <li>Task routing: <code>/examples.json</code>, <code>/agent-index.json</code>, <code>/manifest.json</code></li>
+              <li>Raw token ingestion: <code>/tokens.json</code> or <code>/tokens.css</code></li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h2>Minimal Fetch Example</h2>
+            <pre>GET /manifest.json
+GET /skill.md
+GET /agent-index.json
+GET /examples.json
+GET /tokens.json
+GET /components.md</pre>
+          </article>
+        </div>
+      </section>
+
+      <footer class="site-footer">
+        <h2>Source And Attribution</h2>
+        <p>
+          This project is derived from the original reference site:
+          <a href="https://cf-workers-design.nireka-96.workers.dev/">cf-workers-design.nireka-96.workers.dev</a>
+        </p>
+        <p class="small muted">
+          It repackages the original design guidance into a static, agent-oriented delivery format with
+          machine-readable discovery, direct file access, and a reusable skill.
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>

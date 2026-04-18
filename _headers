@@ -1,0 +1,39 @@
+/*
+  Access-Control-Allow-Origin: *
+  X-Content-Type-Options: nosniff
+
+/manifest.json
+  Cache-Control: public, max-age=300
+
+/llms.txt
+  Cache-Control: public, max-age=300
+
+/agent-index.json
+  Cache-Control: public, max-age=300
+
+/examples.json
+  Cache-Control: public, max-age=300
+
+/manifest.schema.json
+  Cache-Control: public, max-age=300
+
+/agent-index.schema.json
+  Cache-Control: public, max-age=300
+
+/site.webmanifest
+  Cache-Control: public, max-age=300
+
+/robots.txt
+  Cache-Control: public, max-age=300
+
+/sitemap.xml
+  Cache-Control: public, max-age=300
+
+/*.md
+  Cache-Control: public, max-age=300
+
+/schema/*
+  Cache-Control: public, max-age=300
+
+/tokens/*
+  Cache-Control: public, max-age=300

@@ -1,0 +1,169 @@
+{
+  "name": "CF Workers Design System",
+  "slug": "cf-workers-design",
+  "version": "0.1.0",
+  "description": "Agent-first static website for Cloudflare Workers-style design tokens, docs, and reusable skill files.",
+  "derived_from": {
+    "name": "CF Workers Design",
+    "url": "https://cf-workers-design.nireka-96.workers.dev/"
+  },
+  "skill_installation": {
+    "base_url": "https://cf-workers-design-system.adewale-883.workers.dev",
+    "entrypoint": "https://cf-workers-design-system.adewale-883.workers.dev/skill.md",
+    "reference_files": [
+      "https://cf-workers-design-system.adewale-883.workers.dev/skill/design-tokens.md",
+      "https://cf-workers-design-system.adewale-883.workers.dev/skill/components.md",
+      "https://cf-workers-design-system.adewale-883.workers.dev/skill/prompting-guide.md",
+      "https://cf-workers-design-system.adewale-883.workers.dev/skill/product-pages.md"
+    ],
+    "local_install_examples": {
+      "claude_code": "TARGET_DIR=\"$HOME/.claude/skills/cf-workers-design\"",
+      "opencode": "TARGET_DIR=\"$HOME/.config/opencode/skills/cf-workers-design\"",
+      "codex": "TARGET_DIR=\"$HOME/.codex/skills/cf-workers-design\""
+    }
+  },
+  "priority": "agent-first",
+  "preferred_entrypoints": [
+    "/manifest.json",
+    "/llms.txt",
+    "/skill.md",
+    "/tokens.json",
+    "/agent-index.json",
+    "/examples.json"
+  ],
+  "consumption_order": [
+    "Fetch /manifest.json",
+    "Read /skill.md for design rules and routing",
+    "Read /tokens.json for machine-friendly token values",
+    "Fetch only the task-specific docs or skill references needed"
+  ],
+  "core_rules": [
+    "Use warm cream surfaces instead of pure white.",
+    "Use warm brown text instead of pure black.",
+    "Use Cloudflare orange (#FF4801) as the primary accent.",
+    "Buttons should be pill-shaped.",
+    "Cards and bordered wrappers should use corner-bracket details.",
+    "Prefer dashed borders, subtle fills, and restrained motion over loud effects."
+  ],
+  "resources": [
+    {
+      "path": "/tokens.json",
+      "canonical_path": "/tokens/tokens.json",
+      "kind": "design-tokens",
+      "format": "json",
+      "recommended_for": ["agents", "tooling", "design token ingestion"]
+    },
+    {
+      "path": "/tokens.css",
+      "canonical_path": "/tokens/tokens.css",
+      "kind": "design-tokens",
+      "format": "css",
+      "recommended_for": ["frontend implementation"]
+    },
+    {
+      "path": "/tokens/tailwind.preset.cjs",
+      "kind": "design-tokens",
+      "format": "commonjs",
+      "recommended_for": ["tailwind"]
+    },
+    {
+      "path": "/skill.md",
+      "canonical_path": "/skills/cf-workers-design/SKILL.md",
+      "kind": "skill",
+      "format": "markdown",
+      "recommended_for": ["agents"]
+    },
+    {
+      "path": "/agent-index.json",
+      "kind": "search-index",
+      "format": "json",
+      "recommended_for": ["agents", "resource discovery"]
+    },
+    {
+      "path": "/examples.json",
+      "kind": "examples",
+      "format": "json",
+      "recommended_for": ["agents", "task routing"]
+    },
+    {
+      "path": "/site.md",
+      "kind": "index",
+      "format": "markdown",
+      "recommended_for": ["agents", "humans"]
+    },
+    {
+      "path": "/manifest.schema.json",
+      "canonical_path": "/schema/manifest.schema.json",
+      "kind": "schema",
+      "format": "json",
+      "recommended_for": ["agents", "tooling", "validation"]
+    },
+    {
+      "path": "/agent-index.schema.json",
+      "canonical_path": "/schema/agent-index.schema.json",
+      "kind": "schema",
+      "format": "json",
+      "recommended_for": ["agents", "tooling", "validation"]
+    },
+    {
+      "path": "/.well-known/agent-skills/index.json",
+      "kind": "discovery",
+      "format": "json",
+      "recommended_for": ["agents", "skill discovery"]
+    },
+    {
+      "path": "/design-system.md",
+      "canonical_path": "/docs/DESIGN-SYSTEM.md",
+      "kind": "reference",
+      "format": "markdown"
+    },
+    {
+      "path": "/components.md",
+      "canonical_path": "/docs/COMPONENTS.md",
+      "kind": "reference",
+      "format": "markdown"
+    },
+    {
+      "path": "/prompting.md",
+      "canonical_path": "/docs/PROMPTING.md",
+      "kind": "reference",
+      "format": "markdown"
+    },
+    {
+      "path": "/templates.md",
+      "canonical_path": "/docs/TEMPLATES.md",
+      "kind": "reference",
+      "format": "markdown"
+    },
+    {
+      "path": "/product-pages.md",
+      "canonical_path": "/docs/PRODUCT-PAGES.md",
+      "kind": "reference",
+      "format": "markdown"
+    },
+    {
+      "path": "/skill/design-tokens.md",
+      "canonical_path": "/skills/cf-workers-design/references/design-tokens.md",
+      "kind": "skill-reference",
+      "format": "markdown"
+    },
+    {
+      "path": "/skill/components.md",
+      "canonical_path": "/skills/cf-workers-design/references/components.md",
+      "kind": "skill-reference",
+      "format": "markdown"
+    },
+    {
+      "path": "/skill/prompting-guide.md",
+      "canonical_path": "/skills/cf-workers-design/references/prompting-guide.md",
+      "kind": "skill-reference",
+      "format": "markdown"
+    },
+    {
+      "path": "/skill/product-pages.md",
+      "canonical_path": "/skills/cf-workers-design/references/product-pages.md",
+      "kind": "skill-reference",
+      "format": "markdown"
+    }
+  ]
+}

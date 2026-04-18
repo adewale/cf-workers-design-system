@@ -1,0 +1,16 @@
+/tokens.json /tokens/tokens.json 200
+/tokens.css /tokens/tokens.css 200
+/skill /skills/cf-workers-design/SKILL.md 200
+/skill.md /skills/cf-workers-design/SKILL.md 200
+/.well-known/agent-skills/cf-workers-design/SKILL.md /skills/cf-workers-design/SKILL.md 200
+/skill/design-tokens.md /skills/cf-workers-design/references/design-tokens.md 200
+/skill/components.md /skills/cf-workers-design/references/components.md 200
+/skill/prompting-guide.md /skills/cf-workers-design/references/prompting-guide.md 200
+/skill/product-pages.md /skills/cf-workers-design/references/product-pages.md 200
+/manifest.schema.json /schema/manifest.schema.json 200
+/agent-index.schema.json /schema/agent-index.schema.json 200
+/design-system.md /docs/DESIGN-SYSTEM.md 200
+/components.md /docs/COMPONENTS.md 200
+/prompting.md /docs/PROMPTING.md 200
+/templates.md /docs/TEMPLATES.md 200
+/product-pages.md /docs/PRODUCT-PAGES.md 200

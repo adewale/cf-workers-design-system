@@ -1,0 +1,14 @@
+{
+  "name": "cf-workers-design-system-site",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Agent-first Cloudflare Workers Static Assets website for CF Workers design tokens and skill files.",
+  "scripts": {
+    "build": "node ./scripts/build-site.mjs",
+    "dev": "npm run build && wrangler dev",
+    "deploy": "npm run build && wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^4.12.0"
+  }
+}

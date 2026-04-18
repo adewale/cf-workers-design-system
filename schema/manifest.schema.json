@@ -1,0 +1,126 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CF Workers Design System Manifest",
+  "type": "object",
+  "required": [
+    "name",
+    "slug",
+    "version",
+    "description",
+    "priority",
+    "preferred_entrypoints",
+    "consumption_order",
+    "core_rules",
+    "resources"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "derived_from": {
+      "type": "object",
+      "required": ["name", "url"],
+      "properties": {
+        "name": { "type": "string" },
+        "url": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "skill_installation": {
+      "type": "object",
+      "properties": {
+        "base_url": { "type": "string" },
+        "entrypoint": { "type": "string" },
+        "reference_files": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "local_install_examples": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        }
+      },
+      "additionalProperties": true
+    },
+    "priority": {
+      "type": "string"
+    },
+    "preferred_entrypoints": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "consumption_order": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "core_rules": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "resources": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/resource" }
+    },
+    "site": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "url": { "type": ["string", "null"] },
+        "repository_url": { "type": ["string", "null"] },
+        "custom_domain_configured": { "type": "boolean" }
+      },
+      "additionalProperties": true
+    },
+    "discovery": {
+      "type": "object",
+      "properties": {
+        "search_index": { "type": "string" },
+        "examples": { "type": "string" },
+        "markdown_index": { "type": "string" },
+        "webmanifest": { "type": "string" },
+        "robots": { "type": "string" },
+        "sitemap": { "type": "string" },
+        "schemas": {
+          "type": "object",
+          "properties": {
+            "manifest": { "type": "string" },
+            "agent_index": { "type": "string" }
+          },
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "$defs": {
+    "resource": {
+      "type": "object",
+      "required": ["path", "kind", "format"],
+      "properties": {
+        "path": { "type": "string" },
+        "canonical_path": { "type": "string" },
+        "kind": { "type": "string" },
+        "format": { "type": "string" },
+        "recommended_for": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}
