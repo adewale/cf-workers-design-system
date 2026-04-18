@@ -21,6 +21,12 @@
         --cf-bg-300: #fef7ed;
         --cf-border: #ebd5c1;
         --cf-border-light: rgba(235, 213, 193, 0.5);
+        --space-xs: clamp(10px, 1vw, 12px);
+        --space-sm: clamp(16px, 1.4vw, 18px);
+        --space-md: clamp(22px, 2vw, 26px);
+        --space-lg: clamp(28px, 3vw, 36px);
+        --space-xl: clamp(40px, 5vw, 56px);
+        --page-gutter: clamp(18px, 4vw, 48px);
       }
 
       * {
@@ -44,9 +50,9 @@
       }
 
       .wrap {
-        width: min(100% - 32px, 1100px);
+        width: min(100% - (var(--page-gutter) * 2), 1240px);
         margin: 0 auto;
-        padding: 32px 0 64px;
+        padding: var(--space-lg) 0 calc(var(--space-xl) + var(--space-md));
       }
 
       .hero {
@@ -54,7 +60,7 @@
         overflow: hidden;
         border: 1px solid var(--cf-border);
         background: var(--cf-bg-100);
-        padding: 28px;
+        padding: var(--space-lg);
       }
 
       .hero::before,
@@ -103,7 +109,7 @@
 
       h2 {
         font-size: 1.25rem;
-        margin-bottom: 12px;
+        margin-bottom: var(--space-xs);
       }
 
       p {
@@ -113,21 +119,21 @@
 
       .intro {
         max-width: 760px;
-        margin-top: 10px;
+        margin-top: var(--space-xs);
       }
 
       .pill-row {
         display: flex;
         flex-wrap: wrap;
-        gap: 12px;
-        margin-top: 20px;
+        gap: var(--space-xs);
+        margin-top: var(--space-sm);
       }
 
       .meta-row {
         display: flex;
         flex-wrap: wrap;
-        gap: 10px;
-        margin-top: 14px;
+        gap: var(--space-xs);
+        margin-top: var(--space-sm);
       }
 
       .pill {
@@ -154,40 +160,69 @@
 
       .grid {
         display: grid;
-        gap: 24px;
-        margin-top: 32px;
+        gap: var(--space-md);
+        margin-top: var(--space-xl);
         align-items: start;
       }
 
-      @media (min-width: 860px) {
+      @media (min-width: 760px) {
         .grid {
-          grid-template-columns: 1.1fr 1fr;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (min-width: 1100px) {
+        .grid {
+          grid-template-columns: repeat(12, minmax(0, 1fr));
         }
       }
 
       .card {
         border: 1px solid var(--cf-border);
         background: var(--cf-bg-200);
-        padding: 24px;
+        padding: var(--space-md);
+        min-width: 0;
       }
 
       .split {
         display: grid;
-        gap: 24px;
-        margin-top: 24px;
+        gap: var(--space-md);
+        margin-top: var(--space-md);
         align-items: start;
       }
 
-      @media (min-width: 860px) {
+      @media (min-width: 760px) {
         .split {
           grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      @media (min-width: 1100px) {
+        .split {
+          grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+        }
+
+        .card-span-3 {
+          grid-column: span 3;
+        }
+
+        .card-span-4 {
+          grid-column: span 4;
+        }
+
+        .card-span-6 {
+          grid-column: span 6;
+        }
+
+        .card-span-8 {
+          grid-column: span 8;
         }
       }
 
       ul,
       ol {
         padding-left: 18px;
-        margin: 12px 0 0;
+        margin: var(--space-xs) 0 0;
       }
 
       li {
@@ -202,8 +237,8 @@
 
       pre {
         overflow-x: auto;
-        margin: 14px 0 0;
-        padding: 16px;
+        margin: var(--space-sm) 0 0;
+        padding: var(--space-sm);
         border: 1px solid var(--cf-border-light);
         background: #1a1209;
         color: #f0e3de;
@@ -214,7 +249,7 @@
       table {
         width: 100%;
         border-collapse: collapse;
-        margin-top: 12px;
+        margin-top: var(--space-xs);
         font-size: 14px;
       }
 
@@ -263,7 +298,7 @@
       .compare {
         width: 100%;
         border-collapse: collapse;
-        margin-top: 12px;
+        margin-top: var(--space-xs);
       }
 
       .compare td,
@@ -281,14 +316,14 @@
       }
 
       .site-footer {
-        margin-top: 32px;
+        margin-top: var(--space-xl);
         border: 1px solid var(--cf-border);
         background: var(--cf-bg-100);
-        padding: 20px 24px;
+        padding: var(--space-md) var(--space-lg);
       }
 
       .site-footer p + p {
-        margin-top: 8px;
+        margin-top: var(--space-xs);
       }
     </style>
   </head>
@@ -392,7 +427,7 @@
       </section>
 
       <section class="grid">
-        <article class="card">
+        <article class="card card-span-4">
           <h2>Choose Files By Task</h2>
           <ul>
             <li>Landing page: <code>/tokens.json</code>, <code>/components.md</code>, <code>/product-pages.md</code></li>
@@ -403,7 +438,7 @@
           </ul>
         </article>
 
-        <article class="card">
+        <article class="card card-span-4">
           <h2>Recommended Fetch Order</h2>
           <pre>GET /manifest.json
 GET /skill.md
@@ -421,7 +456,7 @@ GET /product-pages.md</pre>
           </p>
         </article>
 
-        <article class="card">
+        <article class="card card-span-4">
           <h2>Recommended Agent Flow</h2>
           <ol>
             <li>Fetch <code>/manifest.json</code>.</li>
@@ -431,7 +466,7 @@ GET /product-pages.md</pre>
           </ol>
         </article>
 
-        <article class="card">
+        <article class="card card-span-4">
           <h2>Minimal Fetch Example</h2>
           <pre>GET /manifest.json
 GET /skill.md
@@ -441,7 +476,7 @@ GET /tokens.json
 GET /components.md</pre>
         </article>
 
-        <article class="card">
+        <article class="card card-span-8">
           <h2>Install The Skill</h2>
           <p class="small muted">
             Use the direct download today. You can also install the same skill with <code>gh skill</code>
@@ -475,7 +510,7 @@ npx skills add adewale/cf-workers-design-system</pre>
           </ul>
         </article>
 
-        <article class="card">
+        <article class="card card-span-3">
           <h2>Available Documents</h2>
           <ul>
             <li><a href="/design-system.md"><code>/design-system.md</code></a></li>
@@ -486,7 +521,7 @@ npx skills add adewale/cf-workers-design-system</pre>
           </ul>
         </article>
 
-        <article class="card">
+        <article class="card card-span-3">
           <h2>Skill References</h2>
           <ul>
             <li><a href="/skill/design-tokens.md"><code>/skill/design-tokens.md</code></a></li>
@@ -496,7 +531,7 @@ npx skills add adewale/cf-workers-design-system</pre>
           </ul>
         </article>
 
-        <article class="card">
+        <article class="card card-span-6">
           <h2>Agent-First Vs. Website-First</h2>
           <table class="compare">
             <thead>
@@ -526,7 +561,7 @@ npx skills add adewale/cf-workers-design-system</pre>
           </table>
         </article>
 
-        <article class="card">
+        <article class="card card-span-8">
           <h2>Markdown Support</h2>
           <p class="small muted">
             Markdown is a first-class output here. Reference docs, the skill, and the site index are all
@@ -544,7 +579,7 @@ curl https://cf-workers-design-system.adewale-883.workers.dev/ \
           </p>
         </article>
 
-        <article class="card">
+        <article class="card card-span-4">
           <h2>Schemas</h2>
           <ul>
             <li><a href="/manifest.schema.json"><code>/manifest.schema.json</code></a></li>
