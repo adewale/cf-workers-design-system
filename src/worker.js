@@ -76,7 +76,8 @@ function applyDiscoveryHeaders(headers, origin) {
     `<${origin}/llms.txt>; rel="describedby"; type="text/plain"`,
     `<${origin}/agent-index.json>; rel="alternate"; type="application/json"`,
     `<${origin}/examples.json>; rel="alternate"; type="application/json"`,
-    `<${origin}/site.md>; rel="alternate"; type="text/markdown"`
+    `<${origin}/site.md>; rel="alternate"; type="text/markdown"`,
+    `<${origin}/design.md>; rel="alternate"; type="text/markdown"`
   ]
 
   headers.set('Link', links.join(', '))

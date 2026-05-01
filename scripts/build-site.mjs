@@ -7,7 +7,7 @@ const scriptDir = dirname(fileURLToPath(import.meta.url))
 const rootDir = join(scriptDir, '..')
 const distDir = join(rootDir, 'dist')
 
-const fileEntries = ['404.html', '_headers', '_redirects', 'index.html', 'llms.txt', 'manifest.json', 'site.md']
+const fileEntries = ['404.html', '_headers', '_redirects', 'index.html', 'llms.txt', 'manifest.json', 'site.md', 'DESIGN.md']
 const directoryEntries = ['docs', 'tokens', 'skills', 'schema']
 
 const sourceManifest = JSON.parse(readFileSync(join(rootDir, 'manifest.json'), 'utf8'))
@@ -21,6 +21,13 @@ const searchIndexEntries = [
     kind: 'index',
     summary: 'Markdown landing page with the primary routes, fetch order, and skill installation instructions.',
     keywords: ['markdown', 'index', 'agent', 'site']
+  },
+  {
+    path: '/design.md',
+    title: 'DESIGN.md',
+    kind: 'design-tokens',
+    summary: 'Self-contained design system definition in the design.md format — YAML token frontmatter plus structured brand rationale readable by humans and agents.',
+    keywords: ['design.md', 'tokens', 'brand', 'colors', 'typography', 'components', 'interoperable']
   },
   {
     path: '/skill.md',
@@ -204,7 +211,7 @@ const outputManifest = {
       published_raw_markdown: true,
       root_negotiation_path: '/',
       accept: 'text/markdown',
-      primary_markdown_routes: ['/site.md', '/skill.md', '/components.md', '/prompting.md', '/product-pages.md']
+      primary_markdown_routes: ['/site.md', '/skill.md', '/design.md', '/components.md', '/prompting.md', '/product-pages.md']
     },
     markdown_negotiation: {
       path: '/',

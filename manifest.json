@@ -47,6 +47,13 @@
   ],
   "resources": [
     {
+      "path": "/design.md",
+      "canonical_path": "/DESIGN.md",
+      "kind": "design-tokens",
+      "format": "markdown",
+      "recommended_for": ["agents", "tools with design.md support", "humans"]
+    },
+    {
       "path": "/tokens.json",
       "canonical_path": "/tokens/tokens.json",
       "kind": "design-tokens",

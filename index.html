@@ -385,6 +385,10 @@
                 <td>Explicit Markdown index for agents and humans.</td>
               </tr>
               <tr>
+                <td><a href="/design.md"><code>/design.md</code></a></td>
+                <td>Full design system in <a href="https://github.com/google-labs-code/design.md">design.md</a> format — YAML tokens + brand rationale.</td>
+              </tr>
+              <tr>
                 <td><a href="/.well-known/agent-skills/index.json"><code>/.well-known/agent-skills/index.json</code></a></td>
                 <td>Agent Skills discovery index for the published skill.</td>
               </tr>
@@ -480,12 +484,30 @@ npx skills add adewale/cf-workers-design-system</pre>
         <article class="card">
           <h2>Available Documents</h2>
           <ul>
+            <li><a href="/design.md"><code>/design.md</code></a> — design.md format</li>
             <li><a href="/design-system.md"><code>/design-system.md</code></a></li>
             <li><a href="/components.md"><code>/components.md</code></a></li>
             <li><a href="/prompting.md"><code>/prompting.md</code></a></li>
             <li><a href="/templates.md"><code>/templates.md</code></a></li>
             <li><a href="/product-pages.md"><code>/product-pages.md</code></a></li>
           </ul>
+        </article>
+
+        <article class="card">
+          <h2>DESIGN.md</h2>
+          <p class="small muted">
+            <a href="/design.md"><code>/design.md</code></a> publishes the complete design system
+            in the <a href="https://github.com/google-labs-code/design.md">design.md</a> open format
+            — a single file combining machine-readable YAML token frontmatter with human-readable
+            brand rationale. Use it with any tool or agent that supports the format natively, or
+            read it directly as structured documentation.
+          </p>
+          <p class="small muted" style="margin-top: 12px;">
+            The YAML frontmatter covers colors, typography, rounded corners, spacing, and component
+            tokens. The markdown body follows the spec section order: Overview → Colors → Typography
+            → Layout → Elevation &amp; Depth → Shapes → Components → Do's and Don'ts.
+          </p>
+          <pre style="margin-top: 14px;">curl https://cf-workers-design-system.adewale-883.workers.dev/design.md</pre>
         </article>
 
         <article class="card">
