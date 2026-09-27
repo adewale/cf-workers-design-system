@@ -58,6 +58,14 @@ This project is derived from the original CF Workers design reference site and i
 npm run build
 ```
 
+### Validate the built manifest and agent index
+
+```bash
+npm run validate:schemas
+```
+
+Checks `dist/manifest.json` and `dist/agent-index.json` against the schemas the site publishes (`schema/*.schema.json`). `npm run deploy` and the deploy workflow run it after the build and stop before `wrangler deploy` if either document breaks its schema.
+
 ### Deploy to Cloudflare Workers Static Assets
 
 ```bash
