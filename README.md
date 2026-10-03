@@ -319,11 +319,14 @@ The local preview is intended to be the main feedback loop while shaping the sit
 
 ## Contributing
 
-If you change the docs, tokens, or skill files, rebuild the site before deploying:
+If you change the docs, tokens, or skill files, rebuild the site and run the tests before deploying:
 
 ```bash
 npm run build
+npm test
 ```
+
+`npm test` starts the built site in workerd through Wrangler (`src/worker.js` plus `_redirects` and `_headers`) and checks that every route in `manifest.json`, `agent-index.json`, and `examples.json` answers 200, that `/` negotiates `site.md` for `Accept: text/markdown`, that discovery `Link` headers resolve, and that the agent-skills digest matches the served `SKILL.md`. The Test workflow runs it on pull requests and pushes to `main`.
 
 Keep additions agent-friendly:
 
