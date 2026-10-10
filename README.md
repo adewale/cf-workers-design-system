@@ -58,6 +58,14 @@ This project is derived from the original CF Workers design reference site and i
 npm run build
 ```
 
+### Validate the built manifest and agent index
+
+```bash
+npm run validate:schemas
+```
+
+Checks `dist/manifest.json` and `dist/agent-index.json` against the schemas the site publishes (`schema/*.schema.json`). `npm run deploy` and the deploy workflow run it after the build and stop before `wrangler deploy` if either document breaks its schema.
+
 ### Deploy to Cloudflare Workers Static Assets
 
 ```bash
@@ -319,11 +327,15 @@ The local preview is intended to be the main feedback loop while shaping the sit
 
 ## Contributing
 
-If you change the docs, tokens, or skill files, rebuild the site before deploying:
+If you change the docs, tokens, or skill files, rebuild the site and run the checks before opening a pull request or deploying:
 
 ```bash
 npm run build
+npm test
+npm run validate:schemas
 ```
+
+`npm test` starts the built site in workerd through Wrangler (`src/worker.js` plus `_redirects` and `_headers`) and checks that every route in `manifest.json`, `agent-index.json`, and `examples.json` answers 200, that `/` negotiates `site.md` for `Accept: text/markdown`, that discovery `Link` headers resolve, and that the agent-skills digest matches the served `SKILL.md`. No workflow runs on pull requests, so run these by hand. The deploy workflow runs `npm test` and `npm run validate:schemas` after the build, about 3 seconds together, and stops before `wrangler deploy` if either fails.
 
 Keep additions agent-friendly:
 

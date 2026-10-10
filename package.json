@@ -4,11 +4,14 @@
   "version": "0.1.0",
   "description": "Agent-first Cloudflare Workers Static Assets website for CF Workers design tokens and skill files.",
   "scripts": {
+    "test": "node --test 'test/*.test.mjs'",
     "build": "node ./scripts/build-site.mjs",
+    "validate:schemas": "node ./scripts/validate-schemas.mjs",
     "dev": "npm run build && wrangler dev",
-    "deploy": "npm run build && wrangler deploy"
+    "deploy": "npm run build && npm run validate:schemas && wrangler deploy"
   },
   "devDependencies": {
+    "ajv": "^8.20.0",
     "wrangler": "^4.12.0"
   }
 }
