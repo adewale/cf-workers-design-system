@@ -34,6 +34,14 @@ jobs:
         env:
           SITE_URL: ${{ vars.SITE_URL }}
 
+      - name: Test the built site through the Worker in workerd
+        run: npm test
+
+      # Agents consume manifest.json and agent-index.json and are pointed at
+      # the published schemas; never deploy documents that break them.
+      - name: Validate manifest and agent index against published schemas
+        run: npm run validate:schemas
+
       - name: Deploy with Wrangler
         run: npx wrangler deploy
         env:
